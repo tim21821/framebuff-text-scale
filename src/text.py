@@ -102,7 +102,7 @@ class Character:
         if size <= 0:
             raise ValueError("size has to be a positive integer.")
         self.char = str(char)
-        self.size = size
+        self.size = int(size)
 
     def get_pixel_positions(self, x=0, y=0):
         """Returns a list of xy-positions, where pixels on all of the positions form the character with size 1. Can be shifted by x, y.
@@ -146,13 +146,33 @@ class Character:
 
 
 class Text:
+    """This is a class representation of a oneline text, that can be displayed on a LCD screen. Its main purpose is to provide a way to upscale text, that is not provided by the :class:`framebuff.Framebuffer` class.
+
+    :param text: A oneline text, that will be represented by the :class:`Text` class
+    :type text: str
+    :param size: The size of each pixel in the displayed text. 1 means each pixel of the font is displayed by 1 pixel, resulting in 8x8 characters. Defaults to 1
+    :type size: int, optional
+    """
+
     def __init__(self, text, size=1):
+        """Constructor method"""
         if size <= 0:
             raise ValueError("size has to be a positive integer.")
         self.text = str(text)
-        self.size = size
+        self.size = int(size)
 
     def draw(self, screen, x, y, color=0x000):
+        """Draws the text on the screen in its correct size. The top left corner of the text is x, y. Text will be printed in the provided color.
+
+        :param screen: The screen to be drawn on
+        :type screen: :class:`framebuff.Framebuffer`
+        :param x: The x-position of the top left corner of the text
+        :type x: int
+        :param y: The y-position of the top left corner of the text
+        :type y: int
+        :param color: The color the text will be displayed in. Defaults to 0x0000
+        :type color: int
+        """
         for i, c in enumerate(self.text):
             char = Character(c, self.size)
             char.draw(screen, x + i * self.size * 8, y, color)
