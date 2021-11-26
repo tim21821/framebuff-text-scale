@@ -99,6 +99,8 @@ class Character:
                     len(str(char))
                 )
             )
+        if size <= 0:
+            raise ValueError("size has to be a positive integer.")
         self.char = str(char)
         self.size = size
 
@@ -138,6 +140,21 @@ class Character:
                 self.size,
                 color,
             )
-    
+
     def __str__(self):
         return self.char
+
+
+class Text:
+    def __init__(self, text, size=1):
+        if size <= 0:
+            raise ValueError("size has to be a positive integer.")
+        self.text = text
+        self.size = size
+
+    def draw(self, screen, x, y, color=0x000):
+        # TODO implement text drawing
+        pass
+
+    def __str__(self):
+        return self.text
