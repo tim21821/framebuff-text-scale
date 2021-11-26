@@ -149,12 +149,13 @@ class Text:
     def __init__(self, text, size=1):
         if size <= 0:
             raise ValueError("size has to be a positive integer.")
-        self.text = text
+        self.text = str(text)
         self.size = size
 
     def draw(self, screen, x, y, color=0x000):
-        # TODO implement text drawing
-        pass
+        for i, c in enumerate(self.text):
+            char = Character(c, self.size)
+            char.draw(screen, x + i * self.size * 8, y, color)
 
     def __str__(self):
         return self.text
